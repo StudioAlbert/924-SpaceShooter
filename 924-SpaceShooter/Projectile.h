@@ -17,14 +17,17 @@ private:
 	sf::Vector2f direction_;
 	sf::Sprite sprite_;
 
+	bool is_dead_ = false;
+
 public:
 	Projectile();
+	void Move(float dt, const sf::Vector2u& window_size);
 
-	void Move(float dt);
+	bool IsDead() const { return is_dead_; }
 
 protected:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	// TODO : IsDead ????????
+	
 
 };
 

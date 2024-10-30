@@ -12,7 +12,8 @@ void Game::Loop()
 {
     while (window_.isOpen())
     {
-        sf::Event event;
+
+    	sf::Event event;
         while (window_.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
@@ -25,7 +26,7 @@ void Game::Loop()
 
         }
 
-        projectiles_.Refresh(dt_);
+        projectiles_.Refresh(dt_, window_.getSize());
 
         window_.clear();
     	window_.draw(projectiles_);

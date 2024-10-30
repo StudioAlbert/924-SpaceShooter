@@ -25,9 +25,18 @@ void Projectile::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(sprite_, states);
 }
 
-void Projectile::Move(float dt)
+void Projectile::Move(float dt, const sf::Vector2u& window_size)
 {
 	setPosition(getPosition() + direction_ * dt);
+
+	sf::Vector2f position = getPosition();
+	if(position.x < 0 || position.x > window_size.x || position.y < 0 || position.y > window_size.y)
+	{
+		is_dead_ = true;
+	}
+
+	// TODO : Tester les collisions avec des trucs ---
+
 }
 
 
