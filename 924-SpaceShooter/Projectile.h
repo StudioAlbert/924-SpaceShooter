@@ -19,7 +19,7 @@ private:
 public:
 	Projectile();
 
-	void Move();
+	void Move(float dt);
 
 protected:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

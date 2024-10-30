@@ -25,11 +25,14 @@ void Game::Loop()
 
         }
 
-        laser1_.Move();
+        laser1_.Move(dt_);
 
         window_.clear();
         window_.draw(laser1_);
         window_.display();
+
+        // At the end of the game loop
+        dt_ = clock_.restart().asSeconds();
 
     }
 }

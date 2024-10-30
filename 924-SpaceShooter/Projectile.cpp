@@ -21,9 +21,9 @@ void Projectile::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(sprite_, states);
 }
 
-void Projectile::Move()
+void Projectile::Move(float dt)
 {
-	setPosition(getPosition() + direction_);
+	setPosition(getPosition() + direction_ * dt);
 }
 
 

@@ -11,6 +11,9 @@ private:
 	sf::RenderWindow window_;
 	Projectile laser1_;
 
+	sf::Clock clock_;
+	float dt_ = 0.016f;
+
 public:
 	Game();
 	void Loop();
