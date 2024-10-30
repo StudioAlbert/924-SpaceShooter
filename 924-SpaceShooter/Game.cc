@@ -20,15 +20,15 @@ void Game::Loop()
 
             if (event.type == sf::Event::MouseButtonReleased)
             {
-                laser1_.setPosition(event.mouseButton.x, event.mouseButton.y);
+                projectiles_.Spawn(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
             }
 
         }
 
-        laser1_.Move(dt_);
+        projectiles_.Refresh(dt_);
 
         window_.clear();
-        window_.draw(laser1_);
+    	window_.draw(projectiles_);
         window_.display();
 
         // At the end of the game loop

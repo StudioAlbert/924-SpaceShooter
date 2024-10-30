@@ -12,8 +12,9 @@ class Projectile : public sf::Drawable, public sf::Transformable
 {
 
 private:
+	static sf::Texture texture_;
+
 	sf::Vector2f direction_;
-	sf::Texture texture_;
 	sf::Sprite sprite_;
 
 public:

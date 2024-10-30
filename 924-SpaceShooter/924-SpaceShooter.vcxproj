@@ -130,10 +130,12 @@
     <ClCompile Include="924-SpaceShooter.cpp" />
     <ClCompile Include="Game.cc" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="projectile_manager.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="projectile_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

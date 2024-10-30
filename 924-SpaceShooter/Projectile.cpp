@@ -1,16 +1,20 @@
 #include "Projectile.h"
 
+#include <iostream>
 #include <SFML/Graphics/RenderTarget.hpp>
+
+sf::Texture Projectile::texture_;
 
 Projectile::Projectile()
 {
 	texture_.loadFromFile("assets\\PNG\\Lasers\\laserBlue12.png");
 
 	sprite_.setTexture(texture_);
+
 	setRotation(90);
 	setScale(0.5f, 0.5f);
 
-	direction_ = { 10 , 0 };
+	direction_ = { 1000 , 0 };
 
 }
 
