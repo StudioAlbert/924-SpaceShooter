@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="924-SpaceShooter.cpp">
+    <ClCompile Include="main.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Projectile.cpp">
+    <ClCompile Include="projectile.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cc">
+    <ClCompile Include="game.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="projectile_manager.cc">
@@ -29,10 +29,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Projectile.h">
+    <ClInclude Include="projectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="projectile_manager.h">

@@ -127,14 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="924-SpaceShooter.cpp" />
-    <ClCompile Include="Game.cc" />
-    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="main.cc" />
+    <ClCompile Include="game.cc" />
+    <ClCompile Include="projectile.cc" />
     <ClCompile Include="projectile_manager.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="projectile.h" />
     <ClInclude Include="projectile_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
