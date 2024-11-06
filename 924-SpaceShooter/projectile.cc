@@ -1,16 +1,24 @@
-#include "Projectile.h"
+#include "projectile.h"
 
+#include <array>
 #include <iostream>
 #include <SFML/Graphics/RenderTarget.hpp>
 
 sf::Texture Projectile::texture_;
+std::array<sf::Texture, 4> Projectile::animation_;
 
 Projectile::Projectile()
 {
 	texture_.loadFromFile("assets\\PNG\\Lasers\\laserBlue12.png");
 
+	animation_[0].loadFromFile("assets\\PNG\\Lasers\\laserBlue01.png");
+	animation_[1].loadFromFile("assets\\PNG\\Lasers\\laserBlue07.png");
+	animation_[2].loadFromFile("assets\\PNG\\Lasers\\laserBlue06.png");
+	animation_[3].loadFromFile("assets\\PNG\\Lasers\\laserBlue05.png");
+
 	sprite_.setTexture(texture_);
 
+	setOrigin(0, texture_.getSize().y / 2);
 	setRotation(90);
 	setScale(0.5f, 0.5f);
 
@@ -18,26 +26,23 @@ Projectile::Projectile()
 
 }
 
-
-void Projectile::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Projectile::UpdateAnimation(float dt)
 {
-	states.transform *= getTransform();
-	target.draw(sprite_, states);
-}
-
-void Projectile::Move(float dt, const sf::Vector2u& window_size)
-{
-	setPosition(getPosition() + direction_ * dt);
-
-	sf::Vector2f position = getPosition();
-	if(position.x < 0 || position.x > window_size.x || position.y < 0 || position.y > window_size.y)
+	time_elapsed_ += dt;
+	if (time_elapsed_ > 0.25f)
 	{
-		is_dead_ = true;
+		idx_texture_++;
+		if(idx_texture_ >= animation_.size())
+		{
+			idx_texture_ = 0;
+		}
+
+		time_elapsed_ = 0;
+		sprite_.setTexture(animation_[idx_texture_]);
 	}
 
-	// TODO : Tester les collisions avec des trucs ---
-
 }
+
 
 
 

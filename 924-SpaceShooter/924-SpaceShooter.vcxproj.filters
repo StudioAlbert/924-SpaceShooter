@@ -27,6 +27,18 @@
     <ClCompile Include="projectile_manager.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="starship.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="asteroid.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="asteroid_manager.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="projectile.h">
@@ -36,6 +48,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="projectile_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="starship.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="asteroid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="asteroid_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
