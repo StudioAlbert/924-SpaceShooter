@@ -79,13 +79,14 @@ void Game::Loop()
 
 		}
 
-
-		starship_.Refresh(dt);
-		player_missiles_.Refresh(dt, window_.getSize());
+		projectiles_.Refresh(dt, window_.getSize());
 		asteroids_.Refresh(dt, window_.getSize());
 		enemy_missiles_.Refresh(dt, window_.getSize());
 		enemy_manager_.Refresh(dt, window_.getSize(), enemy_missiles_);
 
+
+		enemy_missiles_.Refresh(dt, window_.getSize());
+		enemy_manager_.Refresh(dt, window_.getSize(), enemy_missiles_);
 
 		starship_.CheckCollisions(asteroids_.GetEntities());
 		starship_.CheckCollisions(enemy_manager_.GetEntities());
