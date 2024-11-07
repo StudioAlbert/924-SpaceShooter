@@ -39,6 +39,12 @@
     <ClCompile Include="asteroid_manager.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="enemy.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy_manager.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="projectile.h">
@@ -60,6 +66,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="asteroid_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

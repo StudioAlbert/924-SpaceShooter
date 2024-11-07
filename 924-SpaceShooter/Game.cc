@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Game.h"
+#include "game.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
@@ -19,14 +19,12 @@ void Game::Loop()
 
 	float dt = 0.016f;
 
-	float shoot_cool_down = 0;
-
 	while (window_.isOpen())
 	{
 
 		if (sf::Joystick::isButtonPressed(0, 0) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			projectiles_.Spawn(starship_.GetPosition(), { 1000, 0 });
+			player_missiles_.Spawn(starship_.GetPosition(), { 1500, 0 });
 		}
 
 		// what's the current position of the X and Y axes of joystick number 0?
@@ -71,15 +69,26 @@ void Game::Loop()
 
 		}
 
-		projectiles_.Refresh(dt, window_.getSize());
+		
+
+		player_missiles_.Refresh(dt, window_.getSize());
 		asteroids_.Refresh(dt, window_.getSize());
 
+		enemy_missiles_.Refresh(dt, window_.getSize());
+		enemy_manager_.Refresh(dt, window_.getSize(), enemy_missiles_);
+
 		starship_.CheckCollisions(asteroids_.GetEntities());
-		projectiles_.CheckAsteroidsCollisions(asteroids_.GetEntities());
+		starship_.CheckCollisions(enemy_manager_.GetEntities());
+		starship_.CheckCollisions(enemy_missiles_.GetEntities());
+
+		player_missiles_.CheckCollisions(asteroids_.GetEntities());
+		player_missiles_.CheckCollisions(enemy_manager_.GetEntities());
 
 		window_.clear();
-		window_.draw(projectiles_);
+		window_.draw(player_missiles_);
+		window_.draw(enemy_missiles_);
 		window_.draw(asteroids_);
+		window_.draw(enemy_manager_);
 		window_.draw(starship_);
 		window_.display();
 

@@ -5,8 +5,8 @@
 void AsteroidManager::Refresh(float dt, const sf::Vector2u& window_size)
 {
 
-	time_elapsed_ += timer_.restart().asSeconds();
-	if(time_elapsed_ > 0.3f)
+	time_elapsed_ += dt;
+	if(time_elapsed_ > 0.75f)
 	{
 		asteroids_.emplace_back();
 
@@ -17,7 +17,7 @@ void AsteroidManager::Refresh(float dt, const sf::Vector2u& window_size)
 		std::default_random_engine engine(rn_device());
 		std::uniform_real_distribution<float> uniform_dist(0, window_size.y);
 
-		asteroids_.back().setPosition(window_size.x, uniform_dist(engine));
+		asteroids_.back().SetPosition(window_size.x, uniform_dist(engine));
 
 		time_elapsed_ = 0;
 	}

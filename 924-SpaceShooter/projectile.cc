@@ -17,11 +17,15 @@ Projectile::Projectile(sf::Vector2f direction)
 	animation_[3].loadFromFile("assets\\PNG\\Lasers\\laserBlue05.png");
 
 	sprite_.setTexture(texture_);
-	sprite_.setColor(sf::Color(255, 255, 255, 100));
+	sprite_.setColor(sf::Color(255, 255, 255, 255));
+	//setOrigin(0, texture_.getSize().y / 2);
 
-	setOrigin(0, texture_.getSize().y / 2);
 	setRotation(90);
 	setScale(0.5f, 0.5f);
+
+	// Inversion width / height because of rotation
+	hit_box_.height = (float)sprite_.getTextureRect().width * getScale().x;
+	hit_box_.width = (float)sprite_.getTextureRect().height * getScale().y;
 
 	direction_ = direction;
 

@@ -5,6 +5,7 @@
 #include <SFML/System/Clock.hpp>
 
 #include "asteroid.h"
+#include "enemy.h"
 #include "Projectile.h"
 
 class ProjectileManager : public sf::Drawable
@@ -16,9 +17,13 @@ private:
 	float cooldwon_dt_ = 0;
 
 public:
+	std::vector<Projectile>& GetEntities() { return projectiles_; }
+
 	void Spawn(sf::Vector2f spawn_position, sf::Vector2f direction);
 	void Refresh(float dt, const sf::Vector2u& window_size);
-	void CheckAsteroidsCollisions(std::vector<Asteroid>& asteroids);
+
+	void CheckCollisions(std::vector<Asteroid>& asteroids);
+	void CheckCollisions(std::vector<Enemy>& enemies);
 
 protected:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
