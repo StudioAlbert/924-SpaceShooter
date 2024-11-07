@@ -13,14 +13,13 @@ class ProjectileManager : public sf::Drawable
 
 private:
 	std::vector<Projectile> projectiles_;
-	sf::Clock cooldown_timer_;
-	float cooldwon_dt_ = 0;
+	double cooldwon_dt_ = 0;
 
 public:
 	std::vector<Projectile>& GetEntities() { return projectiles_; }
 
 	void Spawn(sf::Vector2f spawn_position, sf::Vector2f direction);
-	void Refresh(float dt, const sf::Vector2u& window_size);
+	void Refresh(const double dt, const sf::Vector2u& window_size);
 
 	void CheckCollisions(std::vector<Asteroid>& asteroids);
 	void CheckCollisions(std::vector<Enemy>& enemies);

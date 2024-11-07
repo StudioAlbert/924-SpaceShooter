@@ -1,44 +1,52 @@
 #include "enemy.h"
 
+#include <iostream>
+
 sf::Texture Enemy::texture_;
 
-constexpr float kShootPeriod = 0.01f;
-constexpr float kBurstPeriod = 0.3f;
+constexpr double kShootPeriod = 0.2f;
+constexpr double kBurstPeriod = 0.6f;
 
 Enemy::Enemy()
 {
 
 	texture_.loadFromFile("assets\\PNG\\Enemies\\enemyRed2.png");
+
 	sprite_.setTexture(texture_);
 	sprite_.setOrigin(sprite_.getTextureRect().width / 2, sprite_.getTextureRect().height / 2);
 	sprite_.setRotation(90);
 	sprite_.setScale(0.6f, 0.6f);
 
-	hit_box_.width = (float)sprite_.getTextureRect().width * sprite_.getScale().x;
-	hit_box_.height = (float)sprite_.getTextureRect().height * sprite_.getScale().y;
+	hit_box_.width = static_cast<float>(sprite_.getTextureRect().width) * sprite_.getScale().x;
+	hit_box_.height = static_cast<float>(sprite_.getTextureRect().height) * sprite_.getScale().y;
 
 	direction_ = { -150, 0 };
 
 }
 
-sf::Vector2f Enemy::GetPosition()
-{
-	return getPosition();
-}
-
-void Enemy::Refresh(float dt)
+void Enemy::Refresh(const double dt)
 {
 	shoot_dt_ += dt;
-
 	burst_dt_ += dt;
+
 	if(burst_dt_ >= kBurstPeriod)
 	{
-		wait_shoot_ = !wait_shoot_;
+		burst_ready_ = !burst_ready_;
 		burst_dt_ = 0;
 	}
+
+	if (shoot_dt_ >= kShootPeriod && burst_ready_)
+	{
+		shoot_dt_ = 0;
+		is_shoot_ready_ = true;
+	}else
+	{
+		is_shoot_ready_ = false;
+	}
+
 }
 
-void Enemy::Damage(int damage)
+void Enemy::Damage(const int damage)
 {
 	hp_ -= damage;
 
@@ -47,20 +55,6 @@ void Enemy::Damage(int damage)
 		SetDeath();
 	}
 }
-
-bool Enemy::IsShootReady()
-{
-
-	if (shoot_dt_ >= kShootPeriod && !wait_shoot_)
-	{
-		shoot_dt_ = 0;
-		return true;
-	}
-
-	return false;
-
-}
-
 
 void Enemy::SetDeath()
 {

@@ -6,36 +6,46 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+constexpr double kShootPeriod = 0.15f;
+
 Starship::Starship()
 {
 	texture_.loadFromFile("assets\\PNG\\playerShip2_blue.png");
 
 	sprite_.setTexture(texture_);
 	sprite_.setOrigin(texture_.getSize().x / 2, texture_.getSize().y / 2);
-
-	setRotation(90);
-	setScale(0.5f, 0.5f);
-
-	// Inversion width / height because of rotation
-	hit_box_.height = (float)sprite_.getTextureRect().width * getScale().x;
-	hit_box_.width = (float)sprite_.getTextureRect().height * getScale().y;
+	sprite_.setRotation(90);
+	sprite_.setScale(0.5f, 0.5f);
 
 }
 
-void Starship::Move(sf::Vector2f direction, float dt)
+void Starship::Move(sf::Vector2f direction, const double dt)
 {
-	move(direction * kSpeed * dt);
-	hit_box_.left = getPosition().x - hit_box_.width / 2;
-	hit_box_.top = getPosition().y - hit_box_.height / 2;
-
+	move(direction.x * kSpeed * dt, direction.y * kSpeed * dt);
+	UpdateHitBox();
 }
 
 void Starship::SetPosition(sf::Vector2u position)
 {
 	setPosition(sf::Vector2f(position));
-	hit_box_.left = getPosition().x - hit_box_.width / 2;
-	hit_box_.top = getPosition().y - hit_box_.height / 2;
+	UpdateHitBox();
+}
 
+void Starship::UpdateHitBox()
+{
+	hit_box_ = sprite_.getGlobalBounds();
+	hit_box_.left += getPosition().x;
+	hit_box_.top += getPosition().y;
+}
+
+void Starship::Refresh(const double dt)
+{
+	shoot_dt_ += dt;
+	if(shoot_dt_ > kShootPeriod)
+	{
+		is_shoot_ready_ = true;
+		shoot_dt_ = 0;
+	}
 }
 
 void Starship::CheckCollisions(std::vector<Asteroid>& asteroids)
@@ -80,13 +90,13 @@ void Starship::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	states.transform *= getTransform();
 
 	// Draw the hitbox
-	//sf::RectangleShape rectangle({hit_box_.width, hit_box_.height});
-	//rectangle.setPosition(hit_box_.left, hit_box_.top);
-	//rectangle.setFillColor(sf::Color(255,255,255,0));
-	//rectangle.setOutlineColor(sf::Color(255,0,0,255));
-	//rectangle.setOutlineThickness(1);
+	sf::RectangleShape rectangle({hit_box_.width, hit_box_.height});
+	rectangle.setPosition(hit_box_.left, hit_box_.top);
+	rectangle.setFillColor(sf::Color(255,255,255,0));
+	rectangle.setOutlineColor(sf::Color(255,0,0,255));
+	rectangle.setOutlineThickness(1);
 
-	//target.draw(rectangle);
+	target.draw(rectangle);
 
 	target.draw(sprite_, states);
 }

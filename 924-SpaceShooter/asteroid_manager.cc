@@ -2,11 +2,11 @@
 
 #include <random>
 
-void AsteroidManager::Refresh(float dt, const sf::Vector2u& window_size)
+void AsteroidManager::Refresh(const double dt, const sf::Vector2u& window_size)
 {
 
-	time_elapsed_ += dt;
-	if(time_elapsed_ > 0.75f)
+	spawn_dt_ += dt;
+	if(spawn_dt_ > 0.75)
 	{
 		asteroids_.emplace_back();
 
@@ -19,7 +19,7 @@ void AsteroidManager::Refresh(float dt, const sf::Vector2u& window_size)
 
 		asteroids_.back().SetPosition(window_size.x, uniform_dist(engine));
 
-		time_elapsed_ = 0;
+		spawn_dt_ = 0;
 	}
 
 	// Cleaning unused projectiles

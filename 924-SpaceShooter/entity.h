@@ -1,10 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#define _USE_MATH_DEFINES
-
-#include <math.h>
-
 #include <SFML/Graphics/Sprite.hpp>
 
 class Entity : public sf::Drawable, protected sf::Transformable
@@ -27,7 +23,7 @@ public:
 	bool IsDead() const { return is_dead_; }
 	void SetDeath() { is_dead_ = true; }
 
-	void Move(float dt, const sf::Vector2u& window_size);
+	void Move(const double dt, const sf::Vector2u& window_size);
 	void SetPosition(float x, float y);
 	void SetPosition(sf::Vector2f position);
 

@@ -18,23 +18,18 @@ Projectile::Projectile(sf::Vector2f direction)
 
 	sprite_.setTexture(texture_);
 	sprite_.setColor(sf::Color(255, 255, 255, 255));
-	//setOrigin(0, texture_.getSize().y / 2);
-
-	setRotation(90);
-	setScale(0.5f, 0.5f);
-
-	// Inversion width / height because of rotation
-	hit_box_.height = (float)sprite_.getTextureRect().width * getScale().x;
-	hit_box_.width = (float)sprite_.getTextureRect().height * getScale().y;
+	sprite_.setOrigin(0, texture_.getSize().y / 2);
+	sprite_.setRotation(90);
+	sprite_.setScale(0.5f, 0.5f);
 
 	direction_ = direction;
 
 }
 
-void Projectile::UpdateAnimation(float dt)
+void Projectile::UpdateAnimation(const double dt)
 {
-	time_elapsed_ += dt;
-	if (time_elapsed_ > 0.25f)
+	animation_time_ += dt;
+	if (animation_time_ > 0.25f)
 	{
 		idx_texture_++;
 		if(idx_texture_ >= animation_.size())
@@ -42,7 +37,7 @@ void Projectile::UpdateAnimation(float dt)
 			idx_texture_ = 0;
 		}
 
-		time_elapsed_ = 0;
+		animation_time_ = 0;
 		sprite_.setTexture(animation_[idx_texture_]);
 	}
 

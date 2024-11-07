@@ -13,21 +13,24 @@ private:
 	static sf::Texture texture_;
 	int hp_ = 10;
 
-	float shoot_dt_ = 0.f;
-	float burst_dt_ = 0.f;
-	bool wait_shoot_ = false;
+	double shoot_dt_ = 0.f;
+	double burst_dt_ = 0.f;
+	bool burst_ready_ = false;
+	bool is_shoot_ready_ = false;
 
 	void SetDeath();
 
 public:
 	Enemy();
 
-	sf::Vector2f GetPosition();
+	bool IsShootReady() const { return is_shoot_ready_; }
+	double ShootDt() const { return shoot_dt_; }
+	sf::Vector2f GetPosition() const { return getPosition(); }
 
-	void Refresh(float dt);
+	void Refresh(const double dt);
 	void Damage(int damage);
-	bool IsShootReady();
 
+	
 };
 
 #endif // ENNEMY_H

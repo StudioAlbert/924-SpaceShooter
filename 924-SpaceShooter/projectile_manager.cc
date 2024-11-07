@@ -5,27 +5,14 @@
 
 #include "asteroid.h"
 
-constexpr float kCooldown_limit_ = 0.15f;
-
 void ProjectileManager::Spawn(sf::Vector2f spawn_position, sf::Vector2f direction)
 {
-
-	if (cooldwon_dt_ < kCooldown_limit_)
-		return;
-
 	projectiles_.emplace_back(direction);
 	projectiles_.back().SetPosition(spawn_position);
-	cooldwon_dt_ = 0;
-
 }
 
-void ProjectileManager::Refresh(float dt, const sf::Vector2u& window_size)
+void ProjectileManager::Refresh(const double dt, const sf::Vector2u& window_size)
 {
-
-	cooldwon_dt_ += cooldown_timer_.restart().asSeconds();
-	//std::cout << "Cooldown Timer : " << cooldwon_dt_ << '\n';
-
-
 	// Cleaning unused projectiles
 	auto removed_elt = std::remove_if(
 		projectiles_.begin(),
@@ -47,7 +34,7 @@ void ProjectileManager::Refresh(float dt, const sf::Vector2u& window_size)
 		p.UpdateAnimation(dt);
 	}
 
-	std::cout << "nb projectiles ? " << projectiles_.size() << '\n';
+	//std::cout << "nb projectiles ? " << projectiles_.size() << '\n';
 
 }
 

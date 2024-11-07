@@ -5,12 +5,13 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 
-void Entity::Move(float dt, const sf::Vector2u& window_size)
+void Entity::Move(const double dt, const sf::Vector2u& window_size)
 {
-	setPosition(getPosition() + direction_ * dt);
+	setPosition(getPosition() + sf::Vector2f(direction_.x * dt, direction_.y * dt));
 
-	hit_box_.left = getPosition().x;
-	hit_box_.top = getPosition().y;
+	hit_box_ = sprite_.getGlobalBounds();
+	hit_box_.left += getPosition().x;
+	hit_box_.top += getPosition().y;
 
 	sf::Vector2f position = getPosition();
 	sf::Vector2f borders = sf::Vector2f(sprite_.getGlobalBounds().width / 2, sprite_.getGlobalBounds().height / 2);
@@ -47,14 +48,14 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	states.transform *= getTransform();
 
 	//// Draw the hitbox ---------------------------------------------------
-	//sf::RectangleShape rectangle({ hit_box_.width, hit_box_.height });
-	//rectangle.setPosition(hit_box_.left, hit_box_.top);
+	sf::RectangleShape rectangle({ hit_box_.width, hit_box_.height });
+	rectangle.setPosition(hit_box_.left, hit_box_.top);
 
-	//rectangle.setFillColor(sf::Color(255, 255, 255, 0));
-	//rectangle.setOutlineColor(sf::Color(0, 0, 255, 255));
-	//rectangle.setOutlineThickness(1);
+	rectangle.setFillColor(sf::Color(255, 255, 255, 0));
+	rectangle.setOutlineColor(sf::Color(0, 0, 255, 255));
+	rectangle.setOutlineThickness(1);
 
-	//target.draw(rectangle);
+	target.draw(rectangle);
 
 	target.draw(sprite_, states);
 }

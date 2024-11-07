@@ -1,17 +1,18 @@
 #include "enemy_manager.h"
 
+#include <iostream>
 #include <random>
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "projectile.h"
 
-constexpr float kSpawnPeriod = 0.75f;
+constexpr double kSpawnPeriod = 3.f;
 
-void EnemyManager::Refresh(float dt, const sf::Vector2u& window_size, ProjectileManager& enemy_missiles_manager)
+void EnemyManager::Refresh(const double dt, const sf::Vector2u& window_size, ProjectileManager& enemy_missiles_manager)
 {
 
 	spawn_dt_ += dt;
-	if (spawn_dt_ > kSpawnPeriod)
+	if (enemies_.size() < 3 && spawn_dt_ > kSpawnPeriod)
 	{
 		enemies_.emplace_back();
 
@@ -36,19 +37,29 @@ void EnemyManager::Refresh(float dt, const sf::Vector2u& window_size, Projectile
 
 	if (removed_elt != enemies_.end())
 	{
-		enemies_.erase(removed_elt);
+		enemies_.erase(removed_elt, enemies_.end());
 	}
 
 	// Move remaining projectiles
+	int i = 0;
 	for (auto& e : enemies_)
 	{
-		e.Move(dt, window_size);
 		e.Refresh(dt);
+		e.Move(dt, window_size);
+
+		std::cout << i << " : " << e.ShootDt() << " :\t" << e.IsShootReady();
+
 		if (e.IsShootReady())
 		{
+			std::cout << "\tShoot!!!";
 			enemy_missiles_manager.Spawn(e.GetPosition(), { -750, 0 });
 		}
+
+		i++;
+		std::cout << '\n';
 	}
+
+	system("cls");
 
 }
 
