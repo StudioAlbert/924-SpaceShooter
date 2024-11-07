@@ -21,7 +21,7 @@ private:
 	int idx_texture_ = 0;
 
 public:
-	Projectile();
+	Projectile(sf::Vector2f direction);
 	void UpdateAnimation(float dt);
 
 };

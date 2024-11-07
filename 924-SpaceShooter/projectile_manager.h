@@ -16,7 +16,7 @@ private:
 	float cooldwon_dt_ = 0;
 
 public:
-	void Spawn(sf::Vector2f spawn_position);
+	void Spawn(sf::Vector2f spawn_position, sf::Vector2f direction);
 	void Refresh(float dt, const sf::Vector2u& window_size);
 	void CheckAsteroidsCollisions(std::vector<Asteroid>& asteroids);
 

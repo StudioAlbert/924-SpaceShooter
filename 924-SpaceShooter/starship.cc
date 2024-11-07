@@ -25,6 +25,10 @@ void Starship::SetPosition(sf::Vector2u position)
 	setPosition(sf::Vector2f(position));
 }
 
+void Starship::CheckCollisions(const std::vector<Asteroid>& vector)
+{
+}
+
 void Starship::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();

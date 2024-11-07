@@ -20,15 +20,15 @@ void Entity::Move(float dt, const sf::Vector2u& window_size)
 	}
 
 	// TODO : Tester les collisions avec des trucs ---
-
+	
 }
 
-bool Entity::Intersects(sf::FloatRect hitBox)
+bool Entity::Intersects(sf::FloatRect hitBox) const
 {
 	return HitBox().intersects(hitBox);
 }
 
-sf::FloatRect Entity::HitBox()
+sf::FloatRect Entity::HitBox() const
 {
 	sf::FloatRect hit_box = sprite_.getGlobalBounds();
 

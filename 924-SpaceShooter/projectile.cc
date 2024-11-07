@@ -7,7 +7,7 @@
 sf::Texture Projectile::texture_;
 std::array<sf::Texture, 4> Projectile::animation_;
 
-Projectile::Projectile()
+Projectile::Projectile(sf::Vector2f direction)
 {
 	texture_.loadFromFile("assets\\PNG\\Lasers\\laserBlue12.png");
 
@@ -17,12 +17,13 @@ Projectile::Projectile()
 	animation_[3].loadFromFile("assets\\PNG\\Lasers\\laserBlue05.png");
 
 	sprite_.setTexture(texture_);
+	sprite_.setColor(sf::Color(255, 255, 255, 100));
 
 	setOrigin(0, texture_.getSize().y / 2);
 	setRotation(90);
 	setScale(0.5f, 0.5f);
 
-	direction_ = { 1000 , 0 };
+	direction_ = direction;
 
 }
 

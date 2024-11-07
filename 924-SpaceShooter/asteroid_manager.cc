@@ -6,7 +6,7 @@ void AsteroidManager::Refresh(float dt, const sf::Vector2u& window_size)
 {
 
 	time_elapsed_ += timer_.restart().asSeconds();
-	if(time_elapsed_ > 1)
+	if(time_elapsed_ > 0.3f)
 	{
 		asteroids_.emplace_back();
 

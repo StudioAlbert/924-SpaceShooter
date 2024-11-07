@@ -5,6 +5,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
+constexpr float kCooldown_limit_ = 0.15f;
+
 Game::Game()
 {
    window_.create(sf::VideoMode(1280, 720), "Space Shooter");
@@ -17,14 +19,15 @@ void Game::Loop()
 
     float dt = 0.016f;
 
+    float shoot_cool_down = 0;
+
 	while (window_.isOpen())
     {
 
-        // GamePad
-        // is button 1 of joystick number 0 pressed?
-        if (sf::Joystick::isButtonPressed(0, 0) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-            projectiles_.Spawn(starship_.GetPosition());
+	        if (sf::Joystick::isButtonPressed(0, 0) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	        {
+		        projectiles_.Spawn(starship_.GetPosition(), {1000, 0});
+	        }
         }
 
 		// what's the current position of the X and Y axes of joystick number 0?
@@ -72,6 +75,7 @@ void Game::Loop()
         projectiles_.Refresh(dt, window_.getSize());
         asteroids_.Refresh(dt, window_.getSize());
 
+        starship_.CheckCollisions(asteroids_.GetEntities());
         projectiles_.CheckAsteroidsCollisions(asteroids_.GetEntities());
 
         window_.clear();
