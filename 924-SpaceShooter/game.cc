@@ -79,7 +79,6 @@ void Game::Loop()
 
 		}
 
-		projectiles_.Refresh(dt, window_.getSize());
 		asteroids_.Refresh(dt, window_.getSize());
 		enemy_missiles_.Refresh(dt, window_.getSize());
 		enemy_manager_.Refresh(dt, window_.getSize(), enemy_missiles_);
