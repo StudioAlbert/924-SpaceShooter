@@ -11,18 +11,25 @@ Game::Game()
 	//window_.create(sf::VideoMode::getDesktopMode(), "Space Shooter", sf::Style::Fullscreen);
 
 	font_.loadFromFile("Assets\\Fonts\\spaceboy\\SpaceBoy.ttf");
+
+	score_.setString("Score : ");// set the string to display
 	score_.setFont(font_); 	// select the font
 	score_.setCharacterSize(24); // set the character size in pixels, not points!
 	score_.setFillColor(sf::Color::White);// set the color
 	score_.setPosition(50, 50);
 
+	lives_.setString("Lives : ");// set the string to display
 	lives_.setFont(font_); 	// select the font
 	lives_.setCharacterSize(24); // set the character size in pixels, not points!
 	lives_.setFillColor(sf::Color::White);// set the color
 	lives_.setPosition(window_.getSize().x - 200, 50);
 
-	score_.setString("Score : ");// set the string to display
-	lives_.setString("Lives : ");// set the string to display
+	game_over_.setString("Game Over !!!");// set the string to display
+	game_over_.setFont(font_); 	// select the font
+	game_over_.setCharacterSize(49); // set the character size in pixels, not points!
+	game_over_.setFillColor(sf::Color::White);// set the color
+	game_over_.setPosition(window_.getSize().x / 2 - 150 , window_.getSize().y / 2);
+
 
 }
 
@@ -129,6 +136,7 @@ void Game::Loop()
 			// GAME OVER
 			// Music de game over
 			// Texte de game over
+			window_.draw(game_over_);
 			// etc......
 		}
 

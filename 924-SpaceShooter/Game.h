@@ -27,6 +27,7 @@ private:
 	sf::Font font_;
 	sf::Text score_;
 	sf::Text lives_;
+	sf::Text game_over_;
 
 public:
 	Game();
