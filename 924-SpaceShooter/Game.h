@@ -1,12 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "projectile_manager.h"
 #include "starship.h"
 #include "asteroid_manager.h"
-#include "enemy.h"
 #include "enemy_manager.h"
 
 class Game
@@ -24,6 +23,10 @@ private:
 	Starship starship_;
 
 	sf::Clock clock_;
+
+	sf::Font font_;
+	sf::Text score_;
+	sf::Text lives_;
 
 public:
 	Game();

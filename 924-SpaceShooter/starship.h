@@ -22,7 +22,14 @@ private:
 	sf::FloatRect hit_box_;
 
 	double shoot_dt_ = 0.f;
+	double hit_dt_ = 0.f;
+
 	bool is_shoot_ready_ = false;
+	bool is_hit_ = false;
+
+	int hp_ = 3;
+
+	const sf::Vector2f start_position_ = {100, 360};
 
 public:
 	Starship();
@@ -32,16 +39,17 @@ public:
 	sf::Vector2f GetPosition() const { return getPosition(); }
 	bool IsShootReady() const { return is_shoot_ready_; }
 	void ShootConfirm() { is_shoot_ready_ = false; }
+	int GetHp() { return hp_; }
 
 	void SetPosition(sf::Vector2u position);
 
 	void UpdateHitBox();
 	void Refresh(const double dt);
+	void HitStarship();
 	void CheckCollisions(std::vector<Asteroid>& asteroids);
 	void CheckCollisions(std::vector<Projectile>& projectiles);
 	void CheckCollisions(std::vector<Enemy>& enemies);
 
-	
 protected:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

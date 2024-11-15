@@ -38,8 +38,11 @@ void ProjectileManager::Refresh(const double dt, const sf::Vector2u& window_size
 
 }
 
-void ProjectileManager::CheckCollisions(std::vector<Asteroid>& asteroids)
+int ProjectileManager::CheckCollisions(std::vector<Asteroid>& asteroids)
 {
+
+	int asteroids_destroyed = 0;
+
 	for (auto& p : projectiles_)
 	{
 		for (auto& a : asteroids)
@@ -48,14 +51,20 @@ void ProjectileManager::CheckCollisions(std::vector<Asteroid>& asteroids)
 			{
 				p.SetDeath();
 				a.SetDeath();
+
+				asteroids_destroyed++;
 			}
 		}
 	}
 
+	return asteroids_destroyed;
+
 }
 
-void ProjectileManager::CheckCollisions(std::vector<Enemy>& enemies)
+int ProjectileManager::CheckCollisions(std::vector<Enemy>& enemies)
 {
+	int asteroids_destroyed = 0;
+
 	for (auto& p : projectiles_)
 	{
 		for (auto& e : enemies)
@@ -64,9 +73,14 @@ void ProjectileManager::CheckCollisions(std::vector<Enemy>& enemies)
 			{
 				p.SetDeath();
 				e.Damage(1);
+
+				asteroids_destroyed++;
+
 			}
 		}
 	}
+
+	return asteroids_destroyed;
 
 }
 

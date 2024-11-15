@@ -46,16 +46,54 @@ void Starship::Refresh(const double dt)
 		is_shoot_ready_ = true;
 		shoot_dt_ = 0;
 	}
+
+	if(is_hit_)
+	{
+		hit_dt_ += dt;
+		if(hit_dt_ >= 3.f)
+		{
+			is_hit_ = false;
+			hit_dt_ = 0;
+		}
+		// Truc d'invincibilite
+	}
+
+	if(is_hit_)
+	{
+		sprite_.setColor(sf::Color(255, 100, 100, 200));
+	}else
+	{
+		sprite_.setColor(sf::Color(255, 255, 255, 255));
+	}
+
+	std::cout << "is hit ? " << is_hit_ << " hit_dt ? " << hit_dt_ << '\n';
+
 }
+
+void Starship::HitStarship()
+{
+	is_hit_ = true;
+	hp_--;
+	SetPosition(static_cast<sf::Vector2u>(start_position_));
+}
+
 
 void Starship::CheckCollisions(std::vector<Asteroid>& asteroids)
 {
+
+	if (is_hit_) 
+	{
+		return;
+	}
+
 	for (auto& a : asteroids)
 	{
 		if (a.IsDead() == false && hit_box_.intersects(a.HitBox()))
 		{
 			a.SetDeath(); // Death of the asteroid --------------------------
 			// Starship damages ?????
+			HitStarship();
+			return;
 		}
 	}
 
@@ -63,26 +101,41 @@ void Starship::CheckCollisions(std::vector<Asteroid>& asteroids)
 
 void Starship::CheckCollisions(std::vector<Projectile>& projectiles)
 {
+	if (is_hit_)
+	{
+		return;
+	}
+
 	for (auto& p : projectiles)
 	{
 		if (p.IsDead() == false && hit_box_.intersects(p.HitBox()))
 		{
 			p.SetDeath(); // Death of the projectile --------------------------
 			// Starship damages ?????
+			HitStarship();
+			return;
 		}
 	}
 }
 
 void Starship::CheckCollisions(std::vector<Enemy>& enemies)
 {
+	if (is_hit_)
+	{
+		return;
+	}
+
 	for (auto& e : enemies)
 	{
 		if (e.IsDead() == false && hit_box_.intersects(e.HitBox()))
 		{
 			e.Damage(5);
 			// Starship damages ?????
+			HitStarship();
+			return;
 		}
 	}
+
 }
 
 void Starship::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -97,6 +150,9 @@ void Starship::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	rectangle.setOutlineThickness(1);
 
 	target.draw(rectangle);
-
+	//if(is_hit_)
+	//{
+	//	target.draw(sprite_shield_, states_);
+	//}
 	target.draw(sprite_, states);
 }

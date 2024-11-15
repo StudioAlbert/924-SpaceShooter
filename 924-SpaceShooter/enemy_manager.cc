@@ -47,19 +47,19 @@ void EnemyManager::Refresh(const double dt, const sf::Vector2u& window_size, Pro
 		e.Refresh(dt);
 		e.Move(dt, window_size);
 
-		std::cout << i << " : " << e.ShootDt() << " :\t" << e.IsShootReady();
+		//std::cout << i << " : " << e.ShootDt() << " :\t" << e.IsShootReady();
 
 		if (e.IsShootReady())
 		{
-			std::cout << "\tShoot!!!";
+			//std::cout << "\tShoot!!!";
 			enemy_missiles_manager.Spawn(e.GetPosition(), { -750, 0 });
 		}
 
 		i++;
-		std::cout << '\n';
+		//std::cout << '\n';
 	}
 
-	system("cls");
+	//system("cls");
 
 }
 
